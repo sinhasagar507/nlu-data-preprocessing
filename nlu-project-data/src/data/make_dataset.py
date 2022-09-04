@@ -3,12 +3,12 @@
 # Primary Libraries
 import re
 import logging
-from pathlib import Path
 
-
-import click
-from dotenv import find_dotenv, load_dotenv
 import contractions as cm
+import click
+
+from pathlib import Path
+from dotenv import find_dotenv, load_dotenv
 
 
 def clean(
