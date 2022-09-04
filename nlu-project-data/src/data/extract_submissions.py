@@ -1,12 +1,16 @@
-import argparse as ap
-import csv
-import datetime
-import json
-from json import JSONDecodeError
-import os
-import requests
-import time
-from tqdm import tqdm
+try:
+    import argparse as ap
+    import csv
+    import datetime
+    import json
+    from json import JSONDecodeError
+    import os
+    import requests
+    import time
+
+    from tqdm import tqdm
+except Exception as e:
+    print(e)
 
 
 def extract_data(submission):
@@ -76,7 +80,7 @@ def main():
                         type=int)  # Optional argument. By default, the explicit flag is set to 1
     parser.add_argument("--over_18",
                         help="include explicit submissions",
-                        action="store_true")  # Optional argument. If the argument is specified, explicit comments will be fetched. If not,
+                        action="store_true")
     parser.add_argument("-f", "--filename",
                         help="CSV file for storing submissions",
                         type=str)
@@ -89,18 +93,15 @@ def main():
     end_month = args.end_month
     year = args.year
 
-    # if year%4 == 0:
-    #     if begin_month == 2 or end_month == 2:    # Add the year AND date discrepancy logic later
-
     start = f"{begin_date}-{begin_month}-{year}"
     end = f"{end_date}-{end_month}-{year}"
     start_timestamp = int(time.mktime(datetime.datetime.strptime(start, "%d-%m-%Y").timetuple()))
     end_timestamp = int(time.mktime(datetime.datetime.strptime(end, "%d-%m-%Y").timetuple()))
 
     subreddit = args.subreddit
-    num_comms = args.comments  # make it an optional argument later
+    num_comms = args.comments
 
-    over_18 = args.over_18  # make it an optional argument later
+    over_18 = args.over_18
     filename = args.filename
 
     submission_count = 0
