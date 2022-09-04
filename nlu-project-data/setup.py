@@ -4,7 +4,7 @@ setup(
     name='src',
     packages=find_packages(),
     version='0.1.0',
-    description='It consists of all the data extraction, preprocessing and annotation project files ',
+    description='Consists of all the data extraction, preprocessing and annotation project files ',
     author='Sagar Sinha',
     license='MIT',
 )

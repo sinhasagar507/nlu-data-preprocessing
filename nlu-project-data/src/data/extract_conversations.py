@@ -15,7 +15,7 @@ reddit = praw.Reddit(
     client_secret=reddit_client_secret,
     password=reddit_password,
     username=reddit_username,
-    user_agent = "personal use script",
+    user_agent="personal use script",
     check_for_async=False
 )
 
