@@ -4,7 +4,7 @@ setup(
     name='src',
     packages=find_packages(),
     version='0.1.0',
-    description='Consists of all the data extraction, preprocessing and annotation project files ',
+    description="NLU Data extraction, preprocessing, analysis, migration and annotation",
     author='Sagar Sinha',
     license='MIT',
 )

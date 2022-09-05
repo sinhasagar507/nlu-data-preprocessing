@@ -2,7 +2,7 @@ try:
     import os
     import json
     from typing import Dict
-    from src.__init__ import ROOT_DIR
+    import src.__init__ as src
 
     from convokit import Utterance, Corpus
     from googleapiclient import discovery
@@ -11,12 +11,10 @@ try:
 except Exception as e:
     print(e)
 
-developer_key = os.environ.get("GOOGLE_API_CLIENT_INSTITUTION")  # load up the entries as environment variables
-
 client = discovery.build(  # Initialize the client
     "commentanalyzer",
     "v1alpha1",
-    developerKey=developer_key,
+    developerKey=src.developer_key_1,
     discoveryServiceUrl="https://commentanalyzer.googleapis.com/$discovery/rest?version=v1alpha1",
 )
 
@@ -60,7 +58,7 @@ def hate_microaggression_polarity(utt: Utterance) -> Dict:
 if __name__ == "__main__":
 
     corpus_name = "sample_corpus"
-    BASE_PATH = os.path.join(ROOT_DIR, "data", "interim", "unclean")
+    BASE_PATH = os.path.join(src.ROOT_DIR, "data", "interim", "unclean")
     corpus = Corpus(corpus_name, filename=BASE_PATH)
     utterances_df = corpus.get_utterances_dataframe().drop("vectors", axis=1)
     utterances_df.assign({"toxicity": [],
@@ -79,5 +77,5 @@ if __name__ == "__main__":
         utterance.add_meta("profanity", hate_microaggression_polarity(utterance)["profanity"])
 
     # Dump Corpus here
-    dump_dir = os.path.join(ROOT_DIR, "data", "interim", "uncleaned")
+    dump_dir = os.path.join(src.ROOT_DIR, "data", "interim", "uncleaned")
     corpus.dump(corpus_name, dump_dir)
