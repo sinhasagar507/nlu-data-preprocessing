@@ -1,21 +1,19 @@
 try:
     import os
-
-    import src.__init__ as src
+    from ...src.__init__ import ROOT_DIR
 
     from convokit import Corpus, TextCleaner
     from make_dataset import bot_removal, cleantext, createConversationGraph, identify_bots, recurse_utterance_ids
 
 except Exception as e:
     print(e)
-    print("You have encountered an exception")
 
 
 def main():
-    file = os.path.join(src.ROOT_DIR, "data", "interim", "unclean", "sample_corpus")  # Load the Corpus
+    file = os.path.join(ROOT_DIR, "data", "interim", "unclean", "sample_corpus")  # Load the Corpus
     corpus = Corpus(filename=file)
 
-    clean = TextCleaner(text_cleaner = cleantext, replace_text = False, save_original = True)
+    clean = TextCleaner(text_cleaner=cleantext, replace_text=False, save_original=True)
     corpus = clean.transform(corpus)
 
     utt_df = corpus.get_utterances_dataframe().drop("vectors", axis=1)
@@ -30,7 +28,7 @@ def main():
 
     # Create the new corpus and dump it
     processed_sample_corpus = Corpus.from_pandas(utt_df)
-    dump_dir = os.path.join(src.ROOT_DIR, "data", "interim", "cleaned")
+    dump_dir = os.path.join(ROOT_DIR, "data", "interim", "cleaned")
     corpus.dump(processed_sample_corpus, dump_dir)
 
 

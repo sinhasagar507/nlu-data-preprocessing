@@ -1,9 +1,12 @@
-import os
-import time
-import datetime
-import pandas as pd
-from tqdm import tqdm
-import praw
+try:
+    import os
+    import time
+    import datetime
+    import pandas as pd
+    from tqdm import tqdm
+    import praw
+except Exception as e:
+    print(e)
 
 reddit_client_id = os.environ.get("SAGAR_REDDIT_CLIENT_ID")  # load up the variable value in environment variables
 reddit_client_secret = os.environ.get("SAGAR_REDDIT_CLIENT_SECRET")

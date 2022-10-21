@@ -1,18 +1,19 @@
-# -*- coding: utf-8 -*-
+try:
+    import re
+    import logging
 
-# Primary Libraries
-import re
-import logging
+    import click
+    import contractions as cm
 
-import click
-import contractions as cm
+    from pathlib import Path
+    from typing import List, Dict
+    from tqdm import tqdm
+    from pandas import DataFrame
+    from convokit import Corpus
+    from dotenv import find_dotenv, load_dotenv
+except Exception as e:
+    print(e)
 
-from pathlib import Path
-from typing import List, Dict
-from tqdm import tqdm
-from pandas import DataFrame
-from convokit import Corpus
-from dotenv import find_dotenv, load_dotenv
 
 
 def cleantext(
