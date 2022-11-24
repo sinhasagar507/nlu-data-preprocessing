@@ -2,31 +2,34 @@ try:
     import os
     import json
     from typing import Dict
-    from ...src.__init__ import ROOT_DIR, developer_key_1
     from convokit import Utterance, Corpus
     from googleapiclient import discovery
     from tqdm import tqdm
+
 except Exception as e:
     print(e)
+
+developer_key = os.environ.get("GOOGLE_API_CLIENT_INSTITUTION")  # load up the entries as environment variables
 
 client = discovery.build(  # Initialize the client
     "commentanalyzer",
     "v1alpha1",
-    developerKey=developer_key_1,
+    developerKey=developer_key,
     discoveryServiceUrl="https://commentanalyzer.googleapis.com/$discovery/rest?version=v1alpha1",
 )
 
 
 def hate_microaggression_polarity(utt: Utterance) -> Dict:
     """
-    Calculates probability scores for several attributes of Perspective API, such as TOXICITY, SEVERE_TOXICITY, IDENTITY_ATTACK, INSULT and PROFANITY
+    Calculates probability scores for production attributes of Perspective API
     A detailed description can be obtained at "https://developers.perspectiveapi.com/s/about-the-api-attributes-and-languages"
+
 
     Args:
         utt: Convokit utterance object
 
     Returns:
-        Probability scores for the attributes
+        Probability scores for the parameters
 
     """
 
@@ -55,9 +58,8 @@ def hate_microaggression_polarity(utt: Utterance) -> Dict:
 
 if __name__ == "__main__":
 
-    corpus_name = "sample_corpus"
-    BASE_PATH = os.path.join(ROOT_DIR, "data", "interim", "unclean")
-    corpus = Corpus(corpus_name, filename=BASE_PATH)
+    CORPUS_PATH = "SOMETHING"
+    corpus = Corpus(filename=CORPUS_PATH)
     utterances_df = corpus.get_utterances_dataframe().drop("vectors", axis=1)
     utterances_df.assign({"toxicity": [],
                           "severe_toxicity": [],
@@ -75,5 +77,4 @@ if __name__ == "__main__":
         utterance.add_meta("profanity", hate_microaggression_polarity(utterance)["profanity"])
 
     # Dump Corpus here
-    dump_dir = os.path.join(ROOT_DIR, "data", "interim", "uncleaned")
-    corpus.dump(corpus_name, dump_dir)
+    # Complete the command
