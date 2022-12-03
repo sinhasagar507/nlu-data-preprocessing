@@ -55,3 +55,7 @@ Project Organization
 --------
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+
+
+## Proposed Methodology: 
+Click [here](https://whimsical.com/execution-2-5dMGTxNRU39o2AfUD8QKUf) to get an overview of the proposed research 
