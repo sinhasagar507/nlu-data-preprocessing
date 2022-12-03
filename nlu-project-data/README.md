@@ -1,4 +1,4 @@
-nlu-project-dataset
+nlu-data-preprocessing 
 ==============================
 
 It consists of all the data extraction, preprocessing and annotation projrct files 
