@@ -1,25 +1,38 @@
-import re
-import os
-import json
+try:
+    import re
+    import os
+    from collections import defaultdict
 
-import warnings
+    import warnings
+    warnings.filterwarnings("ignore")
+    import emot
+    import nltk
+    from nltk.stem import WordNetLemmatizer
+    from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+    from convokit import Corpus, PolitenessStrategies
+    from convokit.text_processing import TextProcessor, TextCleaner, TextParser
+    import spacy
+    import contractions as cm
+    from textblob import TextBlob as tb
 
-warnings.filterwarnings("ignore")
+    from ...config import config
 
-import nltk
-from nltk.stem import WordNetLemmatizer
+except Exception as e:
+    print(e)
 
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from convokit import Corpus, PolitenessStrategies
-from convokit.text_processing import TextProcessor, TextCleaner, TextParser
-import spacy
-import contractions as cm
-from textblob import TextBlob
 
-lemmatizer = WordNetLemmatizer()  # Performs Lemmatization
-sentiment = SentimentIntensityAnalyzer()  # Vader Sentiment Analysis
-politeness = PolitenessStrategies()  # Politeness Indicators
-spacy_nlp = spacy.load('en_core_web_md', disable=["ner"])  # Spacy Language Model
+def def_value():
+    return 0
+
+
+def subjective_words():
+    subjectivity_clues = []
+    with open(os.path.join(config.ROOT_DIR, "data", "external", "subjectivity_clues"), "r") as f:
+        for line in f.readlines():
+            values = line.split(" ")[2]
+            subjectivity_clues = values.split("=")[1]
+            subjectivity_clues.append(subjectivity_clues)
+    return subjectivity_clues
 
 
 def clean(
@@ -92,7 +105,6 @@ def convert_to_lower(utt: str) -> str:
 
         For instance, the different forms of 'hate' are: Hate, HATE, haTE, etc. This function would convert all such occurences to a single canonical form
         """
-
     exclude_tags_list = ['NN', 'NNS', 'NNP', 'NNPS']  # Check if the attached POS tags are correct or not
     sents = nltk.sent_tokenize(utt)
     modified_sent_ls = []
@@ -100,7 +112,7 @@ def convert_to_lower(utt: str) -> str:
     for sent in sents:
         modified_token_ls = []
         words = nltk.word_tokenize(sent)  # Tokenize the sentence and extract POS tags
-
+        lemmatizer = WordNetLemmatizer()  # Performs Lemmatization
         words = [lemmatizer.lemmatize(word) for word in words]  # Perform lemmatization if required
         word_pos_tags = nltk.pos_tag(words)
 
@@ -116,12 +128,14 @@ def convert_to_lower(utt: str) -> str:
         modified_sent_ls.append(sent)
 
     final_text = " ".join(modified_sent_ls)
+
     return final_text
 
 
 # Use a combination of IDENTITY ATTACK and INSULT parameters to separate MICROAGGRESSIONS from OTHER HATE-SPEECH forms
-def vaderSentimentAnalyzer(utterance: str) -> dict:
-    sentence_ls = nltk.sent_tokenize(utterance)
+def sentiment_analyzer(utt: str) -> dict:
+    sentiment = SentimentIntensityAnalyzer()  # Intialize Vader Sentiment Analyzer
+    sentence_ls = nltk.sent_tokenize(utt)
     sentiment_score_ls = []
 
     for sent in sentence_ls:
@@ -133,9 +147,9 @@ def vaderSentimentAnalyzer(utterance: str) -> dict:
         neu_score_sum += sentiment_scores["neu"]
         neg_score_sum += sentiment_scores["neg"]
 
-    pos_score_sum_avg = pos_score_sum / len(sentiment_score_ls)
-    neu_score_sum_avg = neu_score_sum / len(sentiment_score_ls)
-    neg_score_sum_avg = neg_score_sum / len(sentiment_score_ls)
+    pos_score_sum_avg = round((pos_score_sum / len(sentiment_score_ls)), 3)
+    neu_score_sum_avg = round((neu_score_sum / len(sentiment_score_ls)), 3)
+    neg_score_sum_avg = round((neg_score_sum / len(sentiment_score_ls)), 3)
 
     compound_sentiment_scores = {
         "pos": pos_score_sum_avg,
@@ -145,42 +159,36 @@ def vaderSentimentAnalyzer(utterance: str) -> dict:
     return compound_sentiment_scores
 
 
-sentiment_analyzer = TextProcessor(proc_fn=vaderSentimentAnalyzer, input_field="lowercase_text",
-                                   output_field="sentiment_polarity")
+analyze_sentiment = TextProcessor(proc_fn=sentiment_analyzer, input_field="lowercase_text",
+                                  output_field="sentiment_polarity")
 
 
-def modifier_cnt(
-        utt: str) -> float:  # Calculating less of something isn't always the best indicator. Instead the prevalence of something more than ususal is a better marker. # Optional - Emergency Toolkit
+def modifier_count(utt: str) -> int:  # Calculating less of something isn't always the best indicator. Instead the prevalence of something more than ususal is a better marker. # Optional - Emergency Toolkit
+    """Count modifiers, i.e., adjectives and adverbs in an utterance
+    Practically every sentence has modifiers. This function doesn't act as a filter. It is intended to be applied to the entire dataframe
+    The function block can detect probable deceptive clues in tweets and reddit posts
+    Less usage of descriptive modifiers is a possible clue that the speaker is uncertain in his claims/opinions.
     """
 
-    Args:
-        utt:
-
-    Returns:
-
-
-    """
     adj_pos_tags = ['JJ', 'JJR', 'JJS']  # POS tags describing adjectives
     adv_pos_tags = ['RB', 'RBR', 'RBS']  # POS tags for adverbs
     words = nltk.word_tokenize(utt)
     word_tag_lst = nltk.pos_tag(words)
-    cnt_tags = 0
+    mod_count_dict = defaultdict(def_value)
+    count_mod_tags = 0
     for (word, tag) in word_tag_lst:
         if tag in adj_pos_tags or tag in adv_pos_tags:
-            cnt_tags += 1
+            count_mod_tags += 1
+            mod_count_dict[word] += 1
+    return {"modifier_count_dict": mod_count_dict, "count_mod_tags": count_mod_tags}
 
-    return cnt_tags
 
-
-def hedge_cnt(utt: str) -> float:
+def hedge_count(utt: str) -> int:
+    """ Count the list of all modal verbs that indicate possibility, but not certainty
+    The function block can detect probable deceptive clues in tweets and reddit posts
+    More usage of uncertain modal verbs is a possible clue that the speaker is uncertain in his utterance
     """
-
-    Args:
-
-    Returns:
-
-    """
-    cnt_mods = 0
+    count_hedges, hedge_count_dict = 0, defaultdict(def_value)
     set_of_hedges_en = ["almost", "apparent", "apparently", "appear", "appeared", "appears", "approximately", "argue",
                         "argued", "argues", "around", "assume", "assumed", "broadly", "certain amount",
                         "certain extent", "certain level", "claim", "claimed", "claims", "doubt", "doubtful",
@@ -209,46 +217,71 @@ def hedge_cnt(utt: str) -> float:
     words = utt.lower().split(" ")
     for word in words:
         if word in hedges_modals:
-            cnt_mods += 1
-    return cnt_mods
+            count_hedges += 1
+            hedge_count_dict[word] += 1
+    return {"hedge_count_dict": hedge_count_dict, "count_hedges": count_hedges}
 
 
-def group_ref_cnt(utt: str) -> int:  # Include all third-party pronouns as well
+def group_ref_count(utt: str) -> int:  # Include all third-party pronouns as well
+    """Count list of group references
+    Usage of more self-references along with subjectivity score is a possible indication of deception
     """
-
-    Args:
-
-    Returns:
-
-    """
-    cnt_group_ref = 0
+    count_group_ref, group_ref_count_dict = 0, defaultdict(def_value)
     words = utt.lower().split()
-    group_ref = ["we", "our", "ours", "ourselves", "us", "they", "them", "themselves", "their", "theirs",
+    group_ref = ["we", "our", "ours", "ourselves", "us", "they", "them", "thesmselves", "their", "theirs",
                  "everyone", "everybody"]  # More of it to be included here. Self-referencing pronouns
 
     for word in words:
         if word in group_ref:
-            cnt_group_ref += 1
-    return cnt_group_ref
+            count_group_ref += 1
+            group_ref_count_dict[word] += 1
+    return {"group_ref_count_dict": group_ref_count_dict, "count_group_ref": count_group_ref}
 
 
-def subjectivity_score(utt: str) -> int:
+def subjectivity_utterance(utt: str) -> int:
+    """ Textblob subjectivity score
+    A higher subjective score indicates personal opinion.
+    Low subjective scores could be a possible indicator of deception. To be used along with self references.
     """
+    subjective_lexicon_count, subjective_lexicon_dict, subjectivity_scores = 0, defaultdict(def_value), []
+    sents = nltk.sent_tokenize(utt)
 
-    Args:
+    for sent in sents:
+        subjectivity_scores.append(tb(sent).sentiment.subjectivity)
+        words = sent.lower().split()
 
-    Returns:
+        for word in words:
+            subjectivity_clues = subjective_words()
+            if word in subjectivity_clues:
+                subjective_lexicon_dict[word] += 1
+                subjective_lexicon_count += 1
 
+    avg_subjectivity_score = round((sum(subjectivity_scores) / len(subjectivity_scores)), 3)
+    subjective_details = {
+        "avg_subjectivity_score": avg_subjectivity_score,
+        "subjective_lexicon_count": subjective_lexicon_count,
+        "subjective_lexicon_dict": subjective_lexicon_dict
+    }
+
+    return subjective_details
+
+
+def measurePoliteness(utt: str):
     """
-    return TextBlob(utt).sentiment.subjectivity
-
-
-def measure_politeness(utt: str):
+    Computes politeness indicators in the text. The 9 positive politeness strategies
     """
-    Args:
+    politeness = PolitenessStrategies()  # Politeness Indicators
+    spacy_nlp = spacy.load('en_core_web_md', disable=["ner"])  # Spacy Language Model
+    transformed_utt = politeness.transform_utterance(utt, spacy_nlp=spacy_nlp)
+    return transformed_utt.meta['politeness_strategies']
 
-    Returns:
 
+def count_emojis(utt: str) -> int:  # Optional - Emergency Toolkit -
+    """ Counts the total number of emojis in an utterance
+    We don't intend to delete tweets that have emojis. This function doesn't act as a filter. It is intended to be applied to the entire dataframe
+    Decide if it is redundant or not - maybe some possible indicators - not the first choice anyhow
     """
-    utt = politeness.transform_utterance(utt, spacy_nlp=spacy_nlp)
-    return utt.meta["politeness_strategies"]
+    emotion = emot.core.emot()  # Initialize Emoji Object
+    emot_dict = emotion.emoji(utt)
+
+    return len(emot_dict['value'])

@@ -1,7 +1,7 @@
 nlu-project-dataset
 ==============================
 
-It consists of all the data extraction, preprocessing and annotation projrct files 
+It consists of all the data extraction, preprocessing and annotation project files 
 
 Project Organization
 ------------
