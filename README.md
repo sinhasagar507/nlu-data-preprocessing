@@ -16,4 +16,9 @@ the development of misleading, and possibly, negative ideas.
 Coming Soon 
 
 ## Data Preprocessing Flow - Current Status 
-![Image](preprocess_flow.png). You can also link the preprocessing flow [here](https://whimsical.com/reddit-VToZqaZcpuY7hjbybd1bnb). 
+![Image](preprocess_flow.png) 
+
+
+
+## Data Preprocessing Flow - Access 
+You can also link the preprocessing flow [here](https://whimsical.com/reddit-VToZqaZcpuY7hjbybd1bnb)
