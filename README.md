@@ -16,3 +16,4 @@ the development of misleading, and possibly, negative ideas.
 Coming Soon 
 
 ## Data Preprocessing Flow - Current Status 
+![Visibility Issue](https://github.com/sinhasagar507/nlu-data-preprocessing/blob/Sagar/nlu-project-data/images/preprocess_flow.png)
