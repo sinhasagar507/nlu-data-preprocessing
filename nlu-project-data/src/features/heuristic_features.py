@@ -4,6 +4,7 @@ try:
     from collections import defaultdict
 
     import warnings
+
     warnings.filterwarnings("ignore")
     import emot
     import nltk
@@ -159,11 +160,8 @@ def sentiment_analyzer(utt: str) -> dict:
     return compound_sentiment_scores
 
 
-analyze_sentiment = TextProcessor(proc_fn=sentiment_analyzer, input_field="lowercase_text",
-                                  output_field="sentiment_polarity")
-
-
-def modifier_count(utt: str) -> int:  # Calculating less of something isn't always the best indicator. Instead the prevalence of something more than ususal is a better marker. # Optional - Emergency Toolkit
+def modifier_count(
+        utt: str) -> int:  # Calculating less of something isn't always the best indicator. Instead the prevalence of something more than ususal is a better marker. # Optional - Emergency Toolkit
     """Count modifiers, i.e., adjectives and adverbs in an utterance
     Practically every sentence has modifiers. This function doesn't act as a filter. It is intended to be applied to the entire dataframe
     The function block can detect probable deceptive clues in tweets and reddit posts
