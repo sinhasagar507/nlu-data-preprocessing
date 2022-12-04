@@ -16,4 +16,4 @@ the development of misleading, and possibly, negative ideas.
 Coming Soon 
 
 ## Data Preprocessing Flow - Current Status 
-![Visibility Issue](images/preprocess_flow.png)
+![Visibility Issue](preprocess_flow.png)
