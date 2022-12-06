@@ -15,4 +15,8 @@ the development of misleading, and possibly, negative ideas.
 Coming Soon 
 
 ## Data Preprocessing Flow - Current Status 
-Access[here](https://drive.google.com/file/d/1KeSbbUdoef7MgAxnFjVvZPdlHX_43GYp/view?usp=sharing)
+Access [here](https://drive.google.com/file/d/1KeSbbUdoef7MgAxnFjVvZPdlHX_43GYp/view?usp=sharing)
+
+## Questions 
+1. Can we utilize network analysis to capture the existence of retrieved sub-problems? 
+2. Does one or more problems outweigh others, which might lead to an unbalanced dataset? 
