@@ -1,8 +1,7 @@
 # nlu-data-preprocessing
 
 ## Aim 
-Assess the cumulative effect of social discourse tasks (hate speech, 
-microaggressions, trolls and others) in an online environment
+Assess the cumulative effect of social discourse tasks (hate speech, microaggressions, trolls and others) in an online environment
 
 ## Motivation
 1. A cumulative effect of different social problems such as hate speech, deception, condescension, trolls, politeness, and others in conversations have an overall intended effect on a person’s psyche, rather than any individual problem. 
@@ -16,7 +15,7 @@ the development of misleading, and possibly, negative ideas.
 Coming Soon 
 
 ## Data Preprocessing Flow - Current Status 
-<img src="https://drive.google.com/file/d/1KeSbbUdoef7MgAxnFjVvZPdlHX_43GYp/view?usp=sharing" alt="Visit below link">
+[Image](https://drive.google.com/file/d/1KeSbbUdoef7MgAxnFjVvZPdlHX_43GYp/view?usp=sharing)
 
 
 ## Data Preprocessing Flow - Access 
