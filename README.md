@@ -16,8 +16,7 @@ the development of misleading, and possibly, negative ideas.
 Coming Soon 
 
 ## Data Preprocessing Flow - Current Status 
-![Image](preprocess_flow.png) 
-
+<img src="preprocess_flow.png" alt="Visit below link">
 
 
 ## Data Preprocessing Flow - Access 
