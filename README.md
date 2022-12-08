@@ -19,6 +19,9 @@ The system development can be accomplished as follows:
 4. Conversion of text to knowledge graphs to enable learning of task(s)-based node and edge interactions with the help of Graph Attention Networks(GATs).
 
 
+## Research Reading
+[Literature Review](https://docs.google.com/spreadsheets/d/1V3lpL-hOuX-Tn2lFJUJ9mkVmAesYifW-X7ReAc11-Io/edit?usp=sharing)
+
 ## Setup 
 Coming Soon 
 
@@ -28,3 +31,4 @@ Coming Soon
 ## Questions 
 1. Can we utilize network analysis to capture the existence of retrieved sub-problems? 
 2. Does one or more problems outweigh others, which might lead to an unbalanced dataset? 
+
