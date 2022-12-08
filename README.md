@@ -8,7 +8,7 @@ Assess the cumulative effect of social discourse tasks (hate speech, microaggres
 2. The effect can have positive or negative consequences for a conversation participant or reader,  depending upon the interaction patterns observed among 
 these tasks. For eg., polite conversations can conjure positive ideas, whereas conversations interspersed with hate and negative trolling can lead to
 the development of misleading, and possibly, negative ideas. 
-3. Hence, this project is an attempt at deciphering the latent patterns among the social patterns, which in turn would help us in a better estimation of the overall effect 
+3. Hence, this project is an attempt at deciphering the latent patterns among the social patterns, which in turn would help us in a better estimation of the overall effect.  
 
 ## Objective 
 Analyse interactions between these tasks in a social media conversation, and aid in solving issues of social media collaboration and cancel culture
@@ -22,8 +22,8 @@ The system development can be accomplished as follows:
 ## Setup 
 Coming Soon 
 
-## Data Preprocessing Flow - Current Status 
-Access [here](https://drive.google.com/file/d/1KeSbbUdoef7MgAxnFjVvZPdlHX_43GYp/view?usp=sharing)
+## Data Preprocessing Flow AND Proposed Approach - Current Status 
+[Workflow](https://drive.google.com/file/d/1KeSbbUdoef7MgAxnFjVvZPdlHX_43GYp/view?usp=sharing) and [Proposed Approach](https://drive.google.com/file/d/1pc1FitNZycEPpAM8Zkzz5nx1li8wuhJz/view?usp=sharing)
 
 ## Questions 
 1. Can we utilize network analysis to capture the existence of retrieved sub-problems? 
