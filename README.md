@@ -10,6 +10,14 @@ these tasks. For eg., polite conversations can conjure positive ideas, whereas c
 the development of misleading, and possibly, negative ideas. 
 3. Hence, this project is an attempt at deciphering the latent patterns among the social patterns, which in turn would help us in a better estimation of the overall effect 
 
+## Objective 
+Analyse interactions between these tasks in a social media conversation, and aid in solving issues of social media collaboration and cancel culture
+The system development can be accomplished as follows: 
+1. Extraction of Reddit conversational data to enable the study. 
+2. Discourse annotation for nodes and edges in the data and for each of the specific tasks. 
+3. Extraction of discriminative features from conversation utterances and on the basis of proven task-specific heuristics. 
+4. Conversion of text to knowledge graphs to enable learning of task(s)-based node and edge interactions with the help of Graph Attention Networks(GATs).
+
 
 ## Setup 
 Coming Soon 
