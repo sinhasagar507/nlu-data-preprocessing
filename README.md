@@ -5,6 +5,7 @@ It consists of all the data extraction, preprocessing and annotation projrct fil
 
 Project Organization
 ------------
+Head to nlu-project-data directory 
 
     ├── LICENSE
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
