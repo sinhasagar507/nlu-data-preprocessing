@@ -1,8 +1,6 @@
 nlu-data-preprocessing 
 ==============================
 
-It consists of all the data extraction, preprocessing and annotation projrct files 
-
 Project Organization
 ------------
 Head to nlu-project-data directory 
