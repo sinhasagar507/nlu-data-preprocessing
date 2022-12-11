@@ -1,53 +1,31 @@
-Project Organization
-------------
+## Aim 
+Assess the cumulative effect of social discourse tasks (hate speech, microaggressions, trolls and others) in an online environment
 
-    ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
-    │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
-    ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+## Motivation
+1. A cumulative effect of different social problems such as hate speech, deception, condescension, trolls, politeness, and others in conversations have an overall intended effect on a person’s psyche, rather than any individual problem. 
+2. The effect can have positive or negative consequences for a conversation participant or reader,  depending upon the interaction patterns observed among 
+these tasks. For eg., polite conversations can conjure positive ideas, whereas conversations interspersed with hate and negative trolling can lead to
+the development of misleading, and possibly, negative ideas. 
+3. Hence, this project is an attempt at deciphering the latent patterns among the social patterns, which in turn would help us in a better estimation of the overall effect.  
+
+## Objective 
+Analyse interactions between these tasks in a social media conversation, and aid in solving issues of social media collaboration and cancel culture
+The system development can be accomplished as follows: 
+1. Extraction of Reddit conversational data to enable the study. 
+2. Discourse annotation for nodes and edges in the data and for each of the specific tasks. 
+3. Extraction of discriminative features from conversation utterances and on the basis of proven task-specific heuristics. 
+4. Conversion of text to knowledge graphs to enable learning of task(s)-based node and edge interactions with the help of Graph Attention Networks(GATs).
 
 
---------
+## Research Reading
+[Literature Review](https://docs.google.com/spreadsheets/d/1V3lpL-hOuX-Tn2lFJUJ9mkVmAesYifW-X7ReAc11-Io/edit?usp=sharing)
 
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+## Setup 
+Coming Soon 
 
+## Data Preprocessing Flow AND Proposed Approach - Current Status 
+[Workflow](https://drive.google.com/file/d/1KeSbbUdoef7MgAxnFjVvZPdlHX_43GYp/view?usp=sharing) and [Proposed Approach](https://drive.google.com/file/d/1pc1FitNZycEPpAM8Zkzz5nx1li8wuhJz/view?usp=sharing)
+
+## Questions 
+1. Can we utilize network analysis to capture the existence of retrieved sub-problems? 
+2. Does one or more problems outweigh others, which might lead to an unbalanced dataset? 
