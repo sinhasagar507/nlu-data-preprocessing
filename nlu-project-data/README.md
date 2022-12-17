@@ -1,5 +1,13 @@
 ## Aim 
-- Assess the cumulative effect of social discourse tasks (hate speech, microaggressions, trolls and others) in an online environment
+- Assess the cumulative effect of social discourse tasks in an online environment
+- For our use-case, we have considered the following social problem(s)  
+  - Hate Speech 
+  - Microaggressions 
+  - Politeness 
+  - Deception 
+  - Condescension 
+  - Trolls 
+  - Linguistic Alignment 
 
 ## Motivation
 - A cumulative effect of different social problems such as hate speech, deception, condescension, trolls, politeness, and others in conversations have an overall intended effect on a person’s psyche, rather than any individual problem. 
@@ -18,7 +26,7 @@ The system development can be accomplished as follows:
 
 
 ## Research Reading
-[Literature Review](https://docs.google.com/spreadsheets/d/1V3lpL-hOuX-Tn2lFJUJ9mkVmAesYifW-X7ReAc11-Io/edit?usp=sharing)
+[Materials and Resources](https://docs.google.com/spreadsheets/d/1V3lpL-hOuX-Tn2lFJUJ9mkVmAesYifW-X7ReAc11-Io/edit?usp=sharing)
 
 ## Setup 
 Coming Soon 
