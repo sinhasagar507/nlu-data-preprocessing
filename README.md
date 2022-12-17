@@ -1,10 +1,11 @@
-nlu-data-preprocessing 
+nlu-data-analysis-project 
 ==============================
+Head to [nlu-project-data](https://github.com/sinhasagar507/nlu-data-preprocessing/tree/Sagar/nlu-project-data) directory 
 
 Project Organization
 ------------
-Head to [nlu-project-data](https://github.com/sinhasagar507/nlu-data-preprocessing/tree/Sagar/nlu-project-data) directory 
 
+ ├── nlu-project-data
     ├── LICENSE
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
     ├── README.md          <- The top-level README for developers using this project.
