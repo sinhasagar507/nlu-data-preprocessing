@@ -1,4 +1,4 @@
-## Aim 
+# Aim 
 - Assess the cumulative effect of social discourse tasks in an online environment
 - For our use-case, we have considered the following social problem(s)  
   - Hate Speech 
